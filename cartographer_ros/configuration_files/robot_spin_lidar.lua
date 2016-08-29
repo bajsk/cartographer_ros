@@ -26,6 +26,7 @@ options = {
   laser_min_range = 0.6,
   laser_max_range = 30.,
   laser_missing_echo_ray_length = 1.,
+  transform_wait_time = 0.2,
   num_lasers_3d = 1
 }
 
