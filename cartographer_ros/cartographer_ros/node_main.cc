@@ -402,7 +402,7 @@ void Node::PublishPoseAndScanMatchedPointCloud(
   const Rigid3d tracking_to_map = local_to_map * tracking_to_local;
 
   geometry_msgs::TransformStamped stamped_transform;
-  stamped_transform.header.stamp = ToRos(last_pose_estimate.time);
+  stamped_transform.header.stamp = ros::Time::now();
 
   const auto published_to_tracking = tf_bridge_.LookupToTracking(
       last_pose_estimate.time, options_.published_frame);
@@ -420,7 +420,6 @@ void Node::PublishPoseAndScanMatchedPointCloud(
       tf_broadcaster_.sendTransform(stamped_transform);
     } else {
       stamped_transform.header.frame_id = options_.map_frame;
-      stamped_transform.header.stamp = ros::Time::now();
       stamped_transform.child_frame_id = options_.published_frame;
       stamped_transform.transform =
           ToGeometryMsgTransform(tracking_to_map * (*published_to_tracking));
